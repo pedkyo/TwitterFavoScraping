@@ -6,7 +6,7 @@
         "access_token_secret": ""
     },
     "userId": "",
-    "dbFilePath": "./db/app.db",
+    "dbFileName": "app.db",
     "imageFolderPath": "./images",
     "imageDownloadInterval": 1000,
     "getLikedQueryInterval": 1000,
