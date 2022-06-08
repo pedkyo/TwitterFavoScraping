@@ -24,7 +24,7 @@ import config from 'config';
         if(record.has_downloaded == 1 || !record.image_url) { continue; }
         const fileName = record.image_url.split('/').slice(-1)[0];
         const result = await imageDownload(record.image_url + ':orig', fileName);
-        if(result) TweetsTable.updateStatusToDownloaded(record.tweet_id);
+        if(result) TweetsTable.updateStatusToDownloaded(record.media_key);
         await Sleep(config.get('imageDownloadInterval'));
     }
 

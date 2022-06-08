@@ -7,6 +7,9 @@ import config from 'config';
 */
 export = async function imageDownload(url: string, imageName: string): Promise<boolean> {
     const folderPath: string = config.get('imageFolderPath');
+    if(!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath);
+    }
 
     if(!fs.existsSync(folderPath)) { console.log(`\x1b[31m${folderPath} Folder not found\u001b[0m`); return false; }
 
@@ -17,7 +20,7 @@ export = async function imageDownload(url: string, imageName: string): Promise<b
         return true;
     } catch(err: any) {
         // AxiosError以外の場合エラーをそのまま出力
-        if(!axios.isAxiosError(err) && !err.response) {
+        if(!axios.isAxiosError(err) || !err.response) {
             console.log(err);
             return false;
         }

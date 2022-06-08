@@ -8,9 +8,9 @@ export = class TweetsTable {
         const sql = `
             CREATE TABLE IF NOT EXISTS tweets
             (
-                tweet_id unique,
+                media_key PRIMARY KEY,
+                tweet_id,
                 image_url,
-                media_key,
                 media_type,
                 user_id,
                 has_downloaded
@@ -30,9 +30,9 @@ export = class TweetsTable {
         const sql = `
             INSERT OR IGNORE INTO tweets
             VALUES(
+                $media_key,
                 $tweet_id,
                 $image_url,
-                $media_key,
                 $media_type,
                 $user_id,
                 $has_downloaded
@@ -64,20 +64,20 @@ export = class TweetsTable {
         });
     }
 
-    static updateStatusToDownloaded(tweet_id: string) {
+    static updateStatusToDownloaded(media_key: string) {
         const db = this.db;
         const sql = `
             UPDATE tweets SET has_downloaded = 1
-            WHERE tweet_id = $tweet_id
+            WHERE media_key = $media_key
         `;
 
         return new Promise<void>((resolve, reject) => {
             db.run(
                 sql,
-                { $tweet_id: tweet_id },
+                { $media_key: media_key },
                 err => {
                     if(err) reject(err);
-                    // console.log(`Updated Tweet ID ${tweet_id} status as "has downloaded"`)
+                    // console.log(`Updated media_key ${media_key} status as "has downloaded"`)
                     resolve();
                 }
             );

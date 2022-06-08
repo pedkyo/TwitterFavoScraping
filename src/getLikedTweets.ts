@@ -3,7 +3,7 @@ import sleep from './Sleep';
 import config from 'config';
 
 const CREDENTIAL: ConfigData.Credential = config.get('credential');
-const USER_ID:ConfigData.userId = config.get('userId');
+const USER_ID:string = config.get('userId');
 const QUERY_INTERVAL: number = config.get('getLikedQueryInterval');
 
 function likedTweetsHandler(res: TwitterResponse.LikedTweets): DataBaseRecord.Tweets[] {
@@ -17,9 +17,7 @@ function likedTweetsHandler(res: TwitterResponse.LikedTweets): DataBaseRecord.Tw
         const user = users.find(user => user.id == tweet.author_id);
         tweet.attachments?.media_keys.forEach(mediaKey => {
             const media = medias.find(media => media.media_key == mediaKey);
-
-            if(!media || !user) return;
-            
+            if(!media || !user || !media.media_key) return;
             result.push({
                 tweet_id: tweet.id,
                 media_key: media?.media_key,
