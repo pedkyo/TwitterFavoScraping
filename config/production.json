@@ -1,0 +1,14 @@
+{
+    "credential": {
+        "consumer_key":"",
+        "consumer_secret": "",
+        "access_token_key": "",
+        "access_token_secret": ""
+    },
+    "userId": "",
+    "dbFilePath": "./db/app.db",
+    "imageFolderPath": "./images",
+    "imageDownloadInterval": 1000,
+    "getLikedQueryInterval": 1000,
+    "getLikedQueryLimit": 5
+}
